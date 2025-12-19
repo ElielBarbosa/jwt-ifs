@@ -1,0 +1,49 @@
+O que foi feito?
+
+Foi implementado um middleware de autenticação, 
+aplicado especificamente à rota de saldo. Passando 
+na rota específica , consigo acessar o  id do usuário 
+por meio de req.params. O middleware recebe o token JWT, 
+que é validado e decodificado utilizando o método jwt.verify(). 
+Com isso, comparamos o id informado na rota com o id contido no token, 
+permitindo validar que o token fornecido pertence ao usuário que está 
+tentando acessar o saldo.
+
+
+1: A rota de listagem de usuários deve ser protegida por um middleware (camada intermediária)
+para realizar a autenticação do usuário. Visto que a rota acessa dados sensíveis, é
+imprescindível que, após a autenticação, sejam feitas verificações de autorização rigorosas para
+garantir que o usuário solicitante possua as permissões necessárias para acessar tais
+informações. A ausência deste controle representa um risco significativo de segurança.
+
+2: Para garantir a segurança dos dados, é fundamental que as senhas dos usuários sejam
+criptografadas (utilizando uma função de hashing) antes de serem armazenadas no banco de
+dados.
+
+3: Dada a natureza sensível e a função de identificação primária do campo de login (ou
+e-mail/username), é crucial implementar uma etapa de validação rigorosa no momento do
+cadastro. Esta validação deve garantir, de forma transacionalmente segura, que o identificador
+não está previamente em uso no banco de dados.Adicionalmente, é altamente recomendável a
+aplicação de uma Restrição de Unicidade (Unique Constraint) diretamente no esquema do banco
+de dados. Essa prática serve como uma camada de segurança final, prevenindo a criação de
+registros duplicados e assegurando a integridade e a consistência dos dados do sistema,
+mesmo em cenários de alta concorrência.
+
+4: É essencial implementar uma política robusta de força de senha, estabelecendo regras claras
+para a sua criação. Tais regras devem exigir a combinação de diferentes tipos de caracteres
+(letras maiúsculas e minúsculas, números, símbolos) e um comprimento mínimo. O objetivo é
+evitar que os usuários utilizem senhas comuns ou padrões ("senhas padrão"), o que minimiza
+significativamente o risco de ataques de força bruta ou de dicionário e, consequentemente,
+impede o acesso não autorizado ao sistema do usuário.
+
+
+conclusão
+As melhorias propostas representam um conjunto de ações de segurança fundamentais e de
+alto impacto, analisadas a partir de uma perspectiva inicial do sistema. A implementação destas
+práticas que englobam desde o controle de acesso por meio de autenticação e autorização
+robustas, até a integridade e proteção dos dados via criptografia de senhas e restrições de
+unicidade é essencial para elevar significativamente o nível de segurança e a confiabilidade do
+sistema.É importante ressaltar que a segurança da aplicação é um processo contínuo e
+evolutivo. À medida que aprofundamos a análise no código e nas arquiteturas existentes, novas
+oportunidades para otimização e aprimoramentos técnicos e de segurança, bem como a adoção
+de padrões de código mais limpos e sustentáveis, poderão ser identificadas.
